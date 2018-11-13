@@ -1,15 +1,27 @@
 window.onload = function(){
             
-        let lookup = document.getElementById("lookup");
+        let button = document.getElementById("lookup");
+        let lookup;
         let httpRequest;
-    
-        lookup.addEventListener("click", makeRequest);
+        
+        
+        button.addEventListener("click", function(){
+            
+            let selectAll = document.getElementById("check").checked;
+            
+            if(selectAll == true){
+                lookup ="country=" + document.querySelector("input").value + "&all=true";
+                makeRequest();
+            }else{
+                lookup ="country=" + document.querySelector("input").value  + "&all=false";
+                makeRequest();
+            }
+        })
             
         function makeRequest(){
-            let lookup = document.querySelector("input").value;
             httpRequest = new XMLHttpRequest();
             httpRequest.onreadystatechange = request;
-            httpRequest.open('GET', "/world.php?country=" + lookup, true);
+            httpRequest.open('GET', "/world.php?" + lookup, true);
             httpRequest.send();
         }
         
